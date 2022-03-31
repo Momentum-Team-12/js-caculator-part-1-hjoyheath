@@ -1,0 +1,33 @@
+.row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+}
+
+.result {
+  background-color: #75b34b;
+  color: white;
+  width: 300px;
+  height: 100px;
+}
+.button {
+  background-color: #75b34b;
+  border: solid 1px silver;
+  height: 100px;
+  width: 100px;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.opp {
+  background-color: #81c276;
+  color: white;
+  display: flex;
+  height: 100px;
+  width: 100px;
+  align-items: center;
+  justify-content: center;
+}
