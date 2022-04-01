@@ -9,13 +9,13 @@
   background-color: #75b34b;
   color: white;
   width: 300px;
-  height: 100px;
+  height: 97px;
 }
 .button {
   background-color: #75b34b;
   border: solid 1px silver;
-  height: 100px;
-  width: 100px;
+  height: 95px;
+  width: 98px;
   color: white;
   display: flex;
   align-items: center;
@@ -26,7 +26,7 @@
   background-color: #81c276;
   color: white;
   display: flex;
-  height: 100px;
+  height: 95px;
   width: 100px;
   align-items: center;
   justify-content: center;
