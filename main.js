@@ -1,8 +1,3 @@
-// not showing the numbered buttons only clear
-// const numButtons = document.querySelectorAll('.button');
-// console.log("array of buttons", numButtons);
-
-
 const result = document.querySelector(".result");
 console.log('show display', result);
 
@@ -21,38 +16,28 @@ console.log("show clear", clear);
 const decimal = document.getElementById('decimal');
 console.log("show decimal", decimal);
 
-
 let buttons = document.querySelectorAll('.button')
     for (let button of buttons){
         button.addEventListener('click', function (event){
             console.log(event.target.innerText)
+    
+    if (event.target.id !== "result") {
+        result.innerText += event.target.id;
+        console.log("event object", event.target.id);
+    }
+
+    if (event.target.id ==="clear"){
+        result.innerText = "";
+        console.log("event object", event.target.id);
+
+    }
+
+    if (event.target.id === "result"){
+        let result = result(result.innerText)
+        result.innerText = result
+        
+    }
             
+
         });
 }
-
-//  // calc functions
-//  clear.addEventListener('click',() => clearInput());
-
-//  // // math
-//  minus.addEventListener('click',() => operation('-'));
-//  plus.addEventListener('click', () => operation('+'));
-//  multiply.addEventListener('click', () => operation('x'));
-//  divide.addEventListener('click', () => operation('/'));
-//  equals.addEventListener('click', () => handleOperation());
-
-
-    //     if (event.target.id !== "equals") {
-    //         display.innerText += event.target.id;
-    //         console.log("event object", event.target.id);
-    //     }
-    //     if (event.target.id === "clear"){
-    //         display.innerText = "";
-        
-    //     }
-
-    //     if (event.target.id === "equals"){
-    //         let result = equals(display.innerText)
-    //         display.innerText = result;
-    //         console.log(result);
-    //         console.log('equals clicked')        
-
