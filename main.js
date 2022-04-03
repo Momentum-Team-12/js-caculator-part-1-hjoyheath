@@ -1,39 +1,103 @@
-const result = document.querySelector(".result");
-console.log("show display", result);
+console.log(math);
+const { add, subtract, multiply, divide } = math;
 
-const minus = document.getElementById("minus");
-console.log("show minus", minus);
-const plus = document.getElementById("plus");
-console.log("show plus", plus);
-const divide = document.getElementById("divide");
-console.log("show divide", divide);
-const multiply = document.getElementById("multiply");
-console.log("show multiply", multiply);
-const equals = document.getElementById("equals");
-console.log("show equals", equals);
-const clear = document.getElementById("clear");
-console.log("show clear", clear);
-const decimal = document.getElementById("decimal");
-console.log("show decimal", decimal);
+// stack of inputs
+let stack = [0];
+
+const updateResult = () => {
+  document.querySelector("#result").innerText = stack[0];
+};
+
+const clearResult = () => {
+  stack = [0];
+  updateResult();
+};
+
+const equalOut = () => {
+  console.log("equalOut", stack);
+
+  do {
+    const x = stack.shift();
+    const op = stack.shift();
+    const y = stack.shift();
+    stack.unshift(op(x, y));
+  } while (stack.length >= 3);
+
+  updateResult();
+};
+
+const processOp = (op) => {
+  let last = stack[stack.length - 1];
+  if (typeof last !== "function") {
+    stack.push(op);
+  }
+};
+
+const handleDot = () => {
+  let last = stack[stack.length - 1];
+  const dotIndex = last.toString().indexOf(".");
+  if (dotIndex === -1) {
+    stack[stack.length - 1] = last + ".";
+  }
+  updateResult();
+};
+
+const processNumber = (rawInput) => {
+  let last = stack[stack.length - 1];
+
+  if (typeof last === "function") {
+    stack.push(parseInt(rawInput));
+  } else {
+    rawInput = Number.parseFloat(last.toString() + rawInput);
+    stack[stack.length - 1] = rawInput;
+  }
+};
+
+const handleClick = (e) => {
+  console.log(e);
+
+  // save the rawinput for ref.
+  const rawInput = e.target.innerText;
+  console.log(rawInput);
+
+  if (rawInput === "AC") {
+    clearResult();
+    return;
+  }
+
+  if (rawInput === "=") {
+    equalOut();
+    return;
+  }
+
+  if (rawInput === ".") {
+    handleDot();
+    return;
+  }
+
+  // is it an operator?
+  const opMap = {
+    "÷": divide,
+    "×": multiply,
+    "-": subtract,
+    "+": add,
+  };
+
+  if (typeof opMap[rawInput] === "function") {
+    processOp(opMap[rawInput]);
+  } else {
+    // add the number to the stack for processinh
+    processNumber(rawInput);
+  }
+
+  updateResult();
+  console.log(stack);
+};
 
 let buttons = document.querySelectorAll(".button");
+
 for (let button of buttons) {
-  button.addEventListener("click", function (event) {
-    console.log(event, event.target.innerText);
-
-    if (event.target.id !== "result") {
-      result.innerText += event.target.id;
-      console.log("event object", event.target.id);
-    }
-
-    if (event.target.id === "clear") {
-      result.innerText = "";
-      console.log("event object", event.target.id);
-    }
-
-    if (event.target.id === "result") {
-      let result = result(result.innerText);
-      result.innerText = result;
-    }
-  });
+  button.addEventListener("click", handleClick);
 }
+
+clearResult();
