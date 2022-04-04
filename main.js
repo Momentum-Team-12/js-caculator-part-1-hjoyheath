@@ -16,12 +16,12 @@ const clearResult = () => {
 const equalOut = () => {
   console.log("equalOut", stack);
 
-  do {
+  while (stack.length >= 3) {
     const x = stack.shift();
     const op = stack.shift();
     const y = stack.shift();
     stack.unshift(op(x, y));
-  } while (stack.length >= 3);
+  }
 
   updateResult();
 };
@@ -35,10 +35,16 @@ const processOp = (op) => {
 
 const handleDot = () => {
   let last = stack[stack.length - 1];
-  const dotIndex = last.toString().indexOf(".");
-  if (dotIndex === -1) {
-    stack[stack.length - 1] = last + ".";
+
+  if (typeof last === "function") {
+    stack.push(0 + ".");
+  } else {
+    const dotIndex = last.toString().indexOf(".");
+    if (dotIndex === -1) {
+      stack[stack.length - 1] = last + ".";
+    }
   }
+
   updateResult();
 };
 
@@ -86,7 +92,6 @@ const handleClick = (e) => {
   if (typeof opMap[rawInput] === "function") {
     processOp(opMap[rawInput]);
   } else {
-    // add the number to the stack for processinh
     processNumber(rawInput);
   }
 
